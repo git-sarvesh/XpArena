@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Click Game - XpArena</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: Arial,sans-serif; background: #f0f9ff; text-align: center; padding:40px;}
+        h1 { color: #007acc;}
+        #score { font-size: 2em; margin: 20px 0;}
+        #clickBtn { padding: 15px 30px; background-color: #00aaff;color:white; border: none;border-radius:10px;font-size:18px; cursor:pointer;}
+        #clickBtn:hover { background-color: #007acc;}
+    </style>
+</head>
+<body>
+    <h1>Click the Button Game!</h1>
+    <div id="score">Score: 0</div>
+    <button id="clickBtn">Click Me!</button>
+<script>
+let score = 0;
+const scoreDisplay = document.getElementById('score');
+const button = document.getElementById('clickBtn');
+button.addEventListener('click', () => {
+    score++;
+    scoreDisplay.textContent = `Score: ${score}`;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Choose Avatar - XpArena</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: Arial,sans-serif; text-align: center; background-color:#f0f9ff; padding:40px;}
+        h2 { color: #007acc; }
+        .avatar-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;}
+        .avatar { width: 100px; height: 100px; border: 3px solid transparent; border-radius: 50%; cursor: pointer; transition: border 0.3s; }
+        .avatar.selected { border: 3px solid #4CAF50; }
+        #selected-avatar { margin-top: 20px; font-size: 18px;}
+    </style>
+</head>
+<body>
+<h2>Choose Your Avatar</h2>
+<div class="avatar-container" id="avatars">
+    <img src="https://i.pravatar.cc/100?img=1" class="avatar" alt="Avatar 1">
+    <img src="https://i.pravatar.cc/100?img=2" class="avatar" alt="Avatar 2">
+    <img src="https://i.pravatar.cc/100?img=3" class="avatar" alt="Avatar 3">
+    <img src="https://i.pravatar.cc/100?img=4" class="avatar" alt="Avatar 4">
+</div>
+<p id="selected-avatar">Selected Avatar: None</p>
+<script>
+const avatars = document.querySelectorAll('.avatar');
+const selectedText = document.getElementById('selected-avatar');
+avatars.forEach(avatar => {
+    avatar.addEventListener('click', () => {
+        avatars.forEach(a => a.classList.remove('selected'));
+        avatar.classList.add('selected');
+        selectedText.textContent = "Selected Avatar: " + avatar.alt;
+    });
+});
+</script>
+</body>
+</html>
