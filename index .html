@@ -1,68 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XpArena - Gamified Learning Platform</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f9ff;
-            text-align: center;
-            padding: 40px;
-        }
-        h1 {
-            color: #007acc;
-            margin-bottom: 10px;
-        }
-        p {
-            font-size: 1.1em;
-            margin-bottom: 40px;
-        }
-        .main-buttons {
-            margin: 0 auto;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
-        a.button {
-            display: block;
-            background-color: #00aaff;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 18px;
-            text-decoration: none;
-            transition: background 0.2s;
-        }
-        a.button:hover {
-            background-color: #007acc;
-        }
-        footer {
-            margin-top: 70px;
-            color: #555;
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <title>XpArena - Learning Platform</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1>Welcome to XpArena!</h1>
-    <p>Gamified Learning Platform for Rural Students - Choose an activity to begin:</p>
+<div id="container">
 
-    <div class="main-buttons">
-        <a class="button" href="quiz.html">🎓 Start Quiz</a>
-        <a class="button" href="click_game.html">🖱️ Play Click Game</a>
-        <a class="button" href="avatar.html">👤 Choose Avatar</a>
-        <a class="button" href="pomodoro.html">⏲️ Pomodoro Timer</a>
-        <a class="button" href="memory_game.html">🧩 Memory Game</a>
-        <!-- Add more as you create other pages -->
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <h1>🏠 XpArena Home</h1>
+        <p>Choose what you'd like to do:</p>
+        <div class="nav-buttons">
+            <button onclick="showPage('pomodoro')">⏳ Pomodoro Timer</button>
+            <button onclick="showPage('games_menu')">🎮 Learning Games</button>
+            <button onclick="showPage('language')">🌐 Change Language</button>
+        </div>
+        <p>Current language: <b id="current_lang">English</b></p>
+        <hr>
+        <div class="info">Welcome to XpArena! Boost your focus, play learning games, or study in any Indian language.</div>
     </div>
 
-    <footer>
-        &copy; 2025 XpArena. All Rights Reserved.
-    </footer>
+    <!-- Pomodoro Timer Page -->
+    <div id="pomodoro" class="page">
+        <h2>⏳ Pomodoro Focus Timer</h2>
+        <select id="pomo_select">
+            <option value="1500">25 min (Classic)</option>
+            <option value="3000">50 min (Long)</option>
+            <option value="900">15 min (Sprint)</option>
+            <option value="custom">Custom</option>
+        </select>
+        <input id="custom_minutes" type="number" min="5" max="120" value="30" style="display:none;"> min
+        <div>
+            <button onclick="startPomodoro()">▶️ Start</button>
+            <button onclick="pausePomodoro()">⏸️ Pause</button>
+            <button onclick="resetPomodoro()">🧹 Reset Timer</button>
+            <button onclick="showPage('home')">🏠 Home</button>
+        </div>
+        <div id="pomo_time">25:00</div>
+        <div id="pomo_status">Set your focus time then click Start to begin your Pomodoro session! 🎯</div>
+    </div>
+
+    <!-- Games Menu Page -->
+    <div id="games_menu" class="page">
+        <h2>🎮 Choose Your Learning Game</h2>
+        <select id="game_select">
+            <option value="quiz">MCQ Quiz</option>
+            <option value="flashcards">Flashcards</option>
+            <option value="truefalse">True/False</option>
+            <option value="fillblank">Fill in the Blanks</option>
+        </select>
+        <button onclick="startGame()">Start Game</button>
+        <button onclick="showPage('home')">🏠 Home</button>
+    </div>
+
+    <!-- MCQ Quiz Page -->
+    <div id="quiz" class="page">
+        <h2>📝 MCQ Quiz</h2>
+        <label>Subject:
+            <select id="subject_select">
+                <option>Mathematics</option>
+                <option>Science</option>
+                <option>Social Studies</option>
+                <option>English</option>
+                <option>Hindi</option>
+                <option>Computer Science</option>
+            </select>
+        </label>
+        <label>Language:
+            <select id="quiz_lang">
+                <option>English</option>
+                <option>Hindi</option>
+                <option>Tamil</option>
+                <option>Telugu</option>
+                <option>Malayalam</option>
+                <option>Kannada</option>
+                <option>Bengali</option>
+                <option>Marathi</option>
+                <option>Urdu</option>
+                <option>Gujarati</option>
+                <option>Odia</option>
+                <option>Punjabi</option>
+                <option>Assamese</option>
+                <option>Sanskrit</option>
+                <option>Konkani</option>
+                <option>Manipuri</option>
+                <option>Santali</option>
+                <option>Kashmiri</option>
+                <option>Dogri</option>
+                <option>Maithili</option>
+                <option>Bodo</option>
+            </select>
+        </label>
+        <label>Curriculum:
+            <input type="radio" name="curriculum" value="CBSE" checked>CBSE
+            <input type="radio" name="curriculum" value="State Board">State Board
+        </label>
+        <label>Number of Questions:
+            <input type="number" id="num_questions" min="1" max="10" value="4">
+        </label>
+        <button onclick="generateQuiz()">Generate Quiz</button>
+        <button onclick="showPage('home')">🏠 Home</button>
+        <div id="quiz_content"></div>
+    </div>
+
+    <!-- Language Page -->
+    <div id="language" class="page">
+        <h2>🌐 Select Indian Language</h2>
+        <select id="language_select">
+            <option>English</option>
+            <option>Hindi</option>
+            <option>Tamil</option>
+            <option>Telugu</option>
+            <option>Malayalam</option>
+            <option>Kannada</option>
+            <option>Bengali</option>
+            <option>Marathi</option>
+            <option>Urdu</option>
+            <option>Gujarati</option>
+            <option>Odia</option>
+            <option>Punjabi</option>
+            <option>Assamese</option>
+            <option>Sanskrit</option>
+            <option>Konkani</option>
+            <option>Manipuri</option>
+            <option>Santali</option>
+            <option>Kashmiri</option>
+            <option>Dogri</option>
+            <option>Maithili</option>
+            <option>Bodo</option>
+        </select>
+        <button onclick="setLanguage()">Set Language</button>
+        <button onclick="showPage('home')">🏠 Home</button>
+    </div>
+    
+    <!-- Other game placeholders -->
+    <div id="flashcards" class="page">
+        <h2>🃏 Flashcards Game</h2>
+        <div class="info">This game is under development. Card-based revision coming soon!</div>
+        <button onclick="showPage('home')">🏠 Home</button>
+    </div>
+    <div id="truefalse" class="page">
+        <h2>✔️ True/False Game</h2>
+        <div class="info">This game is under development. Interactive rounds coming soon!</div>
+        <button onclick="showPage('home')">🏠 Home</button>
+    </div>
+    <div id="fillblank" class="page">
+        <h2>✏️ Fill in the Blanks Game</h2>
+        <div class="info">This game is under development. Fill-the-gap activities coming soon!</div>
+        <button onclick="showPage('home')">🏠 Home</button>
+    </div>
+
+</div>
+<script src="app.js"></script>
 </body>
 </html>
-
